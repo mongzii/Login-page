@@ -1,8 +1,24 @@
 //로그인 컴포넌트
 
-import React from 'react'
+import React, {useState} from 'react'
 
 export default function Login() {
+    const [email, setEmail] = useState('');
+    const [pw, setPw] = useState('');
+
+    const [emailValid, setEmailValid] = useState(false);
+    const [pwValid, setPwValid] = useState(false);
+
+    const handleEmail = (e)=> {
+        setEmail(e.target.value);
+        const regex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+        if(regex.test(email)) {
+            setEmailValid(true);
+        } else {
+            setEmailValid(false);   //26분16초부터 듣기
+        }
+    }
+
     return (
         <div className='page'>
             <div className='titleWrap'>
@@ -16,7 +32,10 @@ export default function Login() {
                 <div className='inputWrap'>
                     <input 
                     className='input'
-                    placeholder='test@gmail.com' />
+                    placeholder='test@gmail.com'
+                    value={email}
+                    onChange={handleEmail}
+                    />
                 </div>
                 <div className='errorMessageWrap'>
                     올바른 이메일을 입력해주세요.
@@ -26,7 +45,9 @@ export default function Login() {
                 <div className='inputWrap'>
                     <input 
                     className='input'
-                    placeholder='영문, 숫자, 특수문자 포함 8자이상' />
+                    placeholder='영문, 숫자, 특수문자 포함 8자이상'
+                    value={pw}
+                    />
                 </div>
                 <div className='errorMessageWrap'>
                     영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.
