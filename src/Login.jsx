@@ -15,8 +15,19 @@ export default function Login() {
         if(regex.test(email)) {
             setEmailValid(true);
         } else {
-            setEmailValid(false);   //26분16초부터 듣기
+            setEmailValid(false);   
         }
+    }
+
+    const handlePassword = (e) => {
+        setPw(e.target.value);
+        const regex = 
+            /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)/-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
+         if(regex.test(pw)){
+            setPwValid(true);
+         } else {
+            setPwValid(false);
+         }
     }
 
     return (
@@ -31,6 +42,7 @@ export default function Login() {
                 <div className='inputTitle'>이메일 주소</div>
                 <div className='inputWrap'>
                     <input 
+                    type='text'
                     className='input'
                     placeholder='test@gmail.com'
                     value={email}
@@ -38,19 +50,27 @@ export default function Login() {
                     />
                 </div>
                 <div className='errorMessageWrap'>
-                    올바른 이메일을 입력해주세요.
+                    {!emailValid && email.length > 0 && (
+                        <div>올바른 이메일을 입력해주세요.</div>
+                    )}
                 </div>
 
                 <div style={{ marginTop: '26px' }} className='inputTitle'>비밀번호</div>
                 <div className='inputWrap'>
                     <input 
+                    type='password'
                     className='input'
                     placeholder='영문, 숫자, 특수문자 포함 8자이상'
                     value={pw}
+                    onChange={handlePassword}
                     />
                 </div>
                 <div className='errorMessageWrap'>
-                    영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.
+                    {
+                        !pwValid && pw.length > 0 && (
+                            <div>영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
+                        )}
+                    
                 </div>
             </div>
             <div>
