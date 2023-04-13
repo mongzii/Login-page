@@ -8,6 +8,7 @@ export default function Login() {
 
     const [emailValid, setEmailValid] = useState(false);
     const [pwValid, setPwValid] = useState(false);
+    const [notAllow, setNotAllow] = useState(true);
 
     const handleEmail = (e)=> {
         setEmail(e.target.value);
@@ -29,6 +30,14 @@ export default function Login() {
             setPwValid(false);
          }
     }
+
+    useEffect(() => {
+        if(emailValid && pwValid) {
+            setNotAllow(false);
+            return;
+        }
+        setNotAllow(true);
+    }, [emailValid, pwValid]);   //33분 14초
 
     return (
         <div className='page'>
@@ -74,7 +83,7 @@ export default function Login() {
                 </div>
             </div>
             <div>
-                <button disabled={true} className='bottomButton'>확인</button>
+                <button disabled={notAllow} className='bottomButton'>확인</button>
                 {/* 일단은 disabled를 true로 해서 비활성화상태만들어둔다. 나중에 state값으로 true값을 변경해준다.*/}
             </div>
         </div>
