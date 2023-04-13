@@ -1,6 +1,10 @@
 //로그인 컴포넌트
+import React, {useState, useEffect} from 'react'
 
-import React, {useState} from 'react'
+const User = {
+    email: 'test@example.com',
+    pw: 'test2323@@@'
+}
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -29,6 +33,15 @@ export default function Login() {
          } else {
             setPwValid(false);
          }
+    }
+
+    const onClickConfirmButton = () => {
+        //더미데이터와 email, pw 동일한지 확인하는 함수
+        if(email === User.email && pw === User.pw){
+            alert('로그인에 성공했습니다.');
+        } else {
+            alert('등록되지 않은 회원입니다.');
+        }
     }
 
     useEffect(() => {
@@ -83,7 +96,7 @@ export default function Login() {
                 </div>
             </div>
             <div>
-                <button disabled={notAllow} className='bottomButton'>확인</button>
+                <button onClick={onClickConfirmButton} disabled={notAllow} className='bottomButton'>확인</button>
                 {/* 일단은 disabled를 true로 해서 비활성화상태만들어둔다. 나중에 state값으로 true값을 변경해준다.*/}
             </div>
         </div>
